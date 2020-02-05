@@ -151,6 +151,7 @@ func (s *systemd) Install() error {
 		PIDFile              string
 		Restart              string
 		SuccessExitStatus    string
+		LimitNOFILE          string
 		LogOutput            bool
 	}{
 		s.Config,
@@ -160,6 +161,7 @@ func (s *systemd) Install() error {
 		s.Option.string(optionPIDFile, ""),
 		s.Option.string(optionRestart, "always"),
 		s.Option.string(optionSuccessExitStatus, ""),
+		s.Option.string(optionLimitNOFILE, ""),
 		s.Option.bool(optionLogOutput, optionLogOutputDefault),
 	}
 
@@ -260,6 +262,7 @@ ExecStart={{.Path|cmdEscape}}{{range .Arguments}} {{.|cmd}}{{end}}
 {{if .UserName}}User={{.UserName}}{{end}}
 {{if .ReloadSignal}}ExecReload=/bin/kill -{{.ReloadSignal}} "$MAINPID"{{end}}
 {{if .PIDFile}}PIDFile={{.PIDFile|cmd}}{{end}}
+{{if .LimitNOFILE}}LimitNOFILE={{.LimitNOFILE}}{{end}}
 {{if and .LogOutput .HasOutputFileSupport -}}
 StandardOutput=file:/var/log/{{.Name}}.out
 StandardError=file:/var/log/{{.Name}}.err

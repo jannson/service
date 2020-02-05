@@ -84,6 +84,7 @@ const (
 	optionReloadSignal = "ReloadSignal"
 	optionPIDFile      = "PIDFile"
 	optionRestart      = "Restart"
+	optionLimitNOFILE  = "LimitNOFILE"
 
 	optionSuccessExitStatus = "SuccessExitStatus"
 
